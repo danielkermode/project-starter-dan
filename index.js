@@ -6,6 +6,7 @@ const lib = require('./lib/utils');
 
 const args = process.argv;
 const templates = lib.getDirectories(path.join(__dirname, 'templates'));
+console.log(args)
 
 function argHandler(templates, args) {
   if(!templates.includes(args[2])) {
