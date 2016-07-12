@@ -1,6 +1,6 @@
 {
   "name": "project-starter-dan",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "A project scaffolding tool.",
   "main": "index.js",
   "scripts": {
