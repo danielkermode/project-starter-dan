@@ -5,6 +5,7 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 const path = require('path');
 const chalk = require('chalk');
+const file = require('file');
 
 ncp.limit = 16;
 
@@ -15,10 +16,13 @@ function getDirectories(srcpath) {
 }
 
 function copyTemplate(name, dest) {
-  ncp(__dirname + '/templates/' + name, process.cwd() + '/' + dest, (err) => {
+  const templateDir = path.join(__dirname, 'templates', name);
+  const destDir = process.cwd() + '/' + dest
+  ncp(templateDir, destDir, (err) => {
     if(err) {
       return console.error(err);
     }
+    adjIgnores(destDir);
     console.log(chalk.green(`Copied template ${chalk.white(name)} into ./${dest}.`));
   });
 }
@@ -42,6 +46,14 @@ function argHandler(templates, args) {
   }
 }
 
+function adjIgnores(start) {
+  // because npm changes all gitignores to npm ignores when publishing modules, change these back on copy
+  file.walkSync(start, (dirPath, dirs, files) => {
+    if(files.includes('.npmignore')) {
+      fs.renameSync(path.join(dirPath, '.npmignore'), path.join(dirPath, '.gitignore'))
+    }
+  })
+}
 const args = process.argv;
 
 const templates = getDirectories(__dirname + '/templates');
