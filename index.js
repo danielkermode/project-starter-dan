@@ -1,62 +1,46 @@
 #!/usr/bin/env node
-
-const ncp = require('ncp').ncp;
 const inquirer = require('inquirer');
-const fs = require('fs');
 const path = require('path');
 const chalk = require('chalk');
-const file = require('file');
+const lib = require('./lib/utils');
 
-ncp.limit = 16;
-
-function getDirectories(srcpath) {
-  return fs.readdirSync(srcpath).filter((file) => {
-    return fs.statSync(path.join(srcpath, file)).isDirectory();
-  });
-}
-
-function copyTemplate(name, dest) {
-  const templateDir = path.join(__dirname, 'templates', name);
-  const destDir = process.cwd() + '/' + dest
-  ncp(templateDir, destDir, (err) => {
-    if(err) {
-      return console.error(err);
-    }
-    adjIgnores(destDir);
-    console.log(chalk.green(`Copied template ${chalk.white(name)} into ./${dest}.`));
-  });
-}
+const args = process.argv;
+const templates = lib.getDirectories(path.join(__dirname, 'templates'));
 
 function argHandler(templates, args) {
   if(!templates.includes(args[2])) {
     switch(args[2]) {
+      case 'add':
+        if(args[3]) {
+          lib.saveTemplate(args[3], __dirname, process.cwd());
+        } else {
+          help();
+        }
+        break;
       default:
-        console.log();
-        console.log(chalk.green('   usage: project-starter [template] [yourdirname]'));
-        console.log();
-        console.log(chalk.yellow('   Without any arguments, project-starter will prompt for a template to use.'));
-        console.log(chalk.yellow('   With [template], project-starter will copy the template into the current dir.'));
-        console.log(chalk.yellow('   With [yourdirname], project-starter will give the new folder the specified name.'));
-        console.log();
+        help();
         break;
     }
   } else {
     // template requested exists, copy template into either given name or default name
-    args[3] ? copyTemplate(args[2], args[3]) : copyTemplate(args[2], args[2]);
+    const templateDir = path.join(__dirname, 'templates', args[2]);
+    const destDir = path.join(process.cwd(), args[3] ? args[3] : args[2]);
+    lib.copyTemplate(templateDir, destDir);
   }
 }
 
-function adjIgnores(start) {
-  // because npm changes all gitignores to npm ignores when publishing modules, change these back on copy
-  file.walkSync(start, (dirPath, dirs, files) => {
-    if(files.includes('.npmignore')) {
-      fs.renameSync(path.join(dirPath, '.npmignore'), path.join(dirPath, '.gitignore'))
-    }
-  })
+function help() {
+  console.log();
+  console.log(chalk.green('   usage: project-starter [template] [yourdirname]'));
+  console.log(chalk.green('          project-starter add <yourdirname>'));
+  console.log();
+  console.log(chalk.yellow('   Without any arguments, project-starter will prompt for a template to use.'));
+  console.log(chalk.yellow('   With [template], project-starter will copy the template into the current dir.'));
+  console.log(chalk.yellow('   With [yourdirname], project-starter will give the new folder the specified name.'));
+  console.log();
+  console.log(chalk.yellow('   add <yourdirname> will add your (relative or absolute) dir to the usable templates.'));
+  console.log();
 }
-const args = process.argv;
-
-const templates = getDirectories(__dirname + '/templates');
 
 if(!args[2] && !args[3]) {
   inquirer.prompt([
@@ -72,13 +56,11 @@ if(!args[2] && !args[3]) {
       message: 'What\'s your project called?'
     }
   ]).then((answers) => {
-    //console.log(JSON.stringify(answers, null, '  '));
-    copyTemplate(answers.template, answers.projName);
+    const templateDir = path.join(__dirname, 'templates', answers.template);
+    const destDir = path.join(process.cwd(), answers.projName);
+    lib.copyTemplate(templateDir, destDir);
   });
 
 } else {
   argHandler(templates, args);
 }
-
-
-
