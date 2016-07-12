@@ -31,12 +31,12 @@ function argHandler(templates, args) {
 
 function help() {
   console.log();
-  console.log(chalk.green('   usage: project-starter [template] [yourdirname]'));
-  console.log(chalk.green('          project-starter add <yourdirname>'));
+  console.log(chalk.green('   usage: dank [template] [yourdirname]'));
+  console.log(chalk.green('          dank add <yourdirname>'));
   console.log();
-  console.log(chalk.yellow('   Without any arguments, project-starter will prompt for a template to use.'));
-  console.log(chalk.yellow('   With [template], project-starter will copy the template into the current dir.'));
-  console.log(chalk.yellow('   With [yourdirname], project-starter will give the new folder the specified name.'));
+  console.log(chalk.yellow('   Without any arguments, dank will prompt for a template to use.'));
+  console.log(chalk.yellow('   With [template], dank will copy the template into the current dir.'));
+  console.log(chalk.yellow('   With [yourdirname], dank will give the new folder the specified name.'));
   console.log();
   console.log(chalk.yellow('   add <yourdirname> will add your (relative or absolute) dir to the usable templates.'));
   console.log();
