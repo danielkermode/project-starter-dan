@@ -4,7 +4,7 @@ A scaffolding tool for building node projects.
 
 ```npm i -g project-starter-dan```.
 
-```bash
+```
 usage: project-starter [template] [yourdirname]
        project-starter add <yourdirname>
 
