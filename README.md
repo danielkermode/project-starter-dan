@@ -1,11 +1,10 @@
-# project-starter-dan
+#project-starter-dan
 
 A scaffolding tool for building node projects.
 
 ```npm i -g project-starter-dan```.
 
-Usage:
-```project-starter <template> <yourdirname>```.
+Usage: ```project-starter <template> <yourdirname>```.
 
 A directory will be created (within the current directory) with the given name.
 
