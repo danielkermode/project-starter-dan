@@ -12,7 +12,7 @@ function argHandler(templates, args) {
     switch(args[2]) {
       case 'add':
         if(args[3]) {
-          lib.saveTemplate(args[3], __dirname, process.cwd());
+          lib.saveTemplate(args[3], args[1], process.cwd());
         } else {
           help();
         }
