@@ -14,7 +14,7 @@ With [yourdirname], project-starter will give the new folder the specified name.
 
 add <yourdirname> will add your (relative or absolute) dir to the usable templates.
 
-```.
+```
 
 If you are generating a project, a directory will be created (within the current directory) with the given name.
 
