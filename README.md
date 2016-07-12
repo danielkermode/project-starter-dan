@@ -5,8 +5,8 @@ A scaffolding tool for building node projects.
 ```npm i -g project-starter-dan```.
 
 ```
-usage: project-starter [template] [yourdirname]
-       project-starter add <yourdirname>
+usage: dank [template] [yourdirname]
+       dank add <yourdirname>
 
 Without any arguments, project-starter will prompt for a template to use.
 With [template], project-starter will copy the template into the current dir.
