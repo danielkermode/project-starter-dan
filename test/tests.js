@@ -28,18 +28,21 @@ test('getDirectories', (t) => {
 
 test('copyTemplate', (t) => {
   const dummy = tmp.dirSync({
-    dir: __dirname
+    dir: __dirname,
+    unsafeCleanup: true
   });
 
   const dummyFile = tmp.fileSync({
-    dir: dummy.name
+    dir: dummy.name,
+    unsafeCleanup: true
   });
 
   const dummyIgnore = path.join(dummy.name, '.npmignore');
   fs.writeFileSync(dummyIgnore, 'dummydata', 'utf8');
 
   const dest = tmp.dirSync({
-    dir: __dirname
+    dir: __dirname,
+    unsafeCleanup: true
   });
 
   lib.copyTemplate(dummy.name, dest.name, (err) => {
@@ -60,13 +63,15 @@ test('copyTemplate', (t) => {
 
 test('checkIsDir', (t) => {
   const dummy = tmp.dirSync({
-    dir: __dirname
+    dir: __dirname,
+    unsafeCleanup: true
   });
 
   t.ok(lib.checkIsDir(dummy.name), 'identifies a directory correctly');
 
   const notDir = tmp.dirSync({
-    dir: __dirname
+    dir: __dirname,
+    unsafeCleanup: true
   });
 
   fs.removeSync(notDir.name);
@@ -77,23 +82,27 @@ test('checkIsDir', (t) => {
 
 test('saveTemplate', (t) => {
   const dummy = tmp.dirSync({
-    dir: __dirname
+    dir: __dirname,
+    unsafeCleanup: true
   });
 
   fs.mkdirSync(path.join(dummy.name, 'templates'));
 
   const dummyTemplate = tmp.dirSync({
-    dir: path.join(dummy.name)
+    dir: path.join(dummy.name),
+    unsafeCleanup: true
   });
 
   const dummyFile = tmp.fileSync({
-    dir: dummyTemplate.name
+    dir: dummyTemplate.name,
+    unsafeCleanup: true
   });
 
   fs.mkdirSync(path.join(dummyTemplate.name, 'node_modules'));
 
   const dummyNodeModule = tmp.fileSync({
-    dir: path.join(dummyTemplate.name, 'node_modules')
+    dir: path.join(dummyTemplate.name, 'node_modules'),
+    unsafeCleanup: true
   });
 
   const newTemplate = path.join(dummy.name, 'templates', path.basename(dummyTemplate.name));
