@@ -3,6 +3,7 @@ const inquirer = require('inquirer');
 const path = require('path');
 const chalk = require('chalk');
 const lib = require('./lib/utils');
+const licenses = require('osi-licenses');
 
 const args = process.argv;
 const templates = lib.getDirectories(path.join(__dirname, 'templates'));
@@ -49,16 +50,55 @@ if(!args[2] && !args[3]) {
       name: 'template',
       message: 'Pick a template.',
       choices: templates
-    },
-    {
-      type: 'input',
-      name: 'projName',
-      message: 'What\'s your project called?'
     }
   ]).then((answers) => {
-    const templateDir = path.join(__dirname, 'templates', answers.template);
-    const destDir = path.join(process.cwd(), answers.projName);
-    lib.copyTemplate(templateDir, destDir);
+    return Promise.all([inquirer.prompt([
+      {
+        type: 'input',
+        name: 'name',
+        message: 'What\'s your project called?',
+        default: () => {
+          return answers.template;
+        }
+      },
+      {
+        type: 'input',
+        name: 'description',
+        message: 'How would you describe the app?',
+        default: () => {
+          return answers.template;
+        }
+      },
+      {
+        type: 'input',
+        name: 'author',
+        message: 'What\'s your name on Github?',
+        default: () => {
+          return 'author';
+        }
+      },
+      {
+        type: 'list',
+        name: 'license',
+        message: 'Choose a license:',
+        choices: Object.keys(licenses),
+        default: 'MIT'
+      },
+      {
+        type: 'confirm',
+        name: 'moveon',
+        message: 'Continue?',
+      }
+    ]),
+    answers
+    ]);
+  }).then((answers) => {
+    const template = answers.find(obj => !!obj.template).template;
+    const scaffold = answers.find(obj => !!obj.name);
+    if(!scaffold.moveon) return;
+    const templateDir = path.join(__dirname, 'templates', template);
+    const destDir = path.join(process.cwd(), scaffold.name);
+    lib.copyTemplate(templateDir, destDir, scaffold);
   });
 
 } else {

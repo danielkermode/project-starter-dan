@@ -38,16 +38,22 @@ test('copyTemplate', (t) => {
   });
 
   const dummyIgnore = path.join(dummy.name, '.npmignore');
+  const dummyPackage = path.join(dummy.name, 'package.json');
   fs.writeFileSync(dummyIgnore, 'dummydata', 'utf8');
+
+  fs.writeFileSync(dummyPackage, JSON.stringify({}), 'utf8');
 
   const dest = tmp.dirSync({
     dir: __dirname,
     unsafeCleanup: true
   });
 
-  lib.copyTemplate(dummy.name, dest.name, (err) => {
-    if(err) return console.error(err);
+  const dummyJson = { author: 'dank' };
 
+  lib.copyTemplate(dummy.name, dest.name, dummyJson, (err) => {
+    if(err) return console.error(err);
+    const packageJson = require(path.join(dest.name, 'package.json'));
+    t.deepEqual(packageJson, dummyJson, 'package.json is updated correctly');
     t.throws(() => fs.statSync(path.join(dest.name, '.npmignore')), 'trying to get .npmignore in new dir should throw');
     t.ok(fs.statSync(path.join(dest.name, '.gitignore')).isFile(), '.gitignore file should now exist in new dir');
     dircompare.compare(dummy.name, dest.name)
