@@ -26,7 +26,6 @@
     "file": "^0.2.2",
     "fs-extra": "^0.30.0",
     "inquirer": "^1.1.2",
-    "ncp": "^2.0.0",
     "osi-licenses": "^0.1.1"
   },
   "devDependencies": {
