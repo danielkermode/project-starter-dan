@@ -7,6 +7,9 @@
     "start": "node index.js",
     "test": "tape test/*.js | tap-spec"
   },
+  "engines" : {
+    "node" : ">=6.2.1"
+  },
   "repository": {
     "type": "git",
     "url": "git+github.com/danielkermode/project-starter.git"
