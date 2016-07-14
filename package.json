@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "tape test/*.js | tap-spec",
-    "build": "babel index.js lib/utils.js -o bin"
+    "test": "tape test/*.js | tap-spec"
   },
   "engines": {
     "node": ">=6.2.1"
