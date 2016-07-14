@@ -1,14 +1,14 @@
 {
   "name": "project-starter-dan",
-  "version": "1.2.7",
+  "version": "1.2.8",
   "description": "A project scaffolding tool.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "test": "tape test/*.js | tap-spec"
   },
-  "engines" : {
-    "node" : ">=6.2.1"
+  "engines": {
+    "node": ">=6.2.1"
   },
   "repository": {
     "type": "git",
