@@ -4,8 +4,7 @@ A scaffolding tool for building node projects.
 
 ```npm i -g project-starter-dan```.
 
-NOTE: This module requires node version >=6.2 It uses ```.include()```.
-
+Recommended to use with node >=6.2.1.
 
 ```
 usage: dank [template] [yourdirname]

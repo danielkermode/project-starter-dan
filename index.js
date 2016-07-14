@@ -8,6 +8,15 @@ const licenses = require('osi-licenses');
 const args = process.argv;
 const templates = lib.getDirectories(path.join(__dirname, 'templates'));
 
+//polyfill for includes
+if(!Array.prototype.includes) {
+  Array.prototype.includes = function(searchElement, fromIndex) {
+    'use strict';
+    fromIndex = fromIndex || 0;
+    return this.indexOf(searchElement, fromIndex) >= 0;
+  };
+}
+
 function argHandler(templates, args) {
   if(!templates.includes(args[2])) {
     switch(args[2]) {
