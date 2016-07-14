@@ -26,4 +26,6 @@ Template is one of:
 
 ```react-express``` for react with express (still has webpack with hot reloading).
 
+```react-redux-router-express-knex``` A full stack setup with react-router, redux bindings, express and knex on the backend with code for a postgres db.
+
 WIP.
