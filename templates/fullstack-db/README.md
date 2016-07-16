@@ -14,7 +14,7 @@ DB_NAME=dbname
 DB_HOST=127.0.0.1
 ```
 
-Now, if the database is set up correctly you should run ```npm run database``` which runs the knex migrations. Knex docs: http://knexjs.org/
+Now, if the database is set up correctly you should run ```npm run database``` which runs the knex migrations and seeds. Knex docs: http://knexjs.org/
 
 ```npm start``` to run the express server on localhost:3000.
 
