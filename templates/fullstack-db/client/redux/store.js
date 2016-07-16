@@ -4,7 +4,7 @@ import reducer from './reducer';
 import { routerReducer } from 'react-router-redux';
 
 const combined = combineReducers({
-  ...reducer,
+  reducer,
   routing: routerReducer
 });
 
