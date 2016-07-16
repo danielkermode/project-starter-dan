@@ -4,7 +4,7 @@ A full stack application using react, redux, express and knex.
 
 Since this is a full stack with a database and server, some setup is required to get it running locally.
 
-First, you will need a database (the current configuration expects postgres but this can be changed) running. Postgres setup guide: https://wiki.postgresql.org/wiki/Detailed\_installation\_guides
+First, you will need a database (the current configuration expects postgres but this can be changed) running. Postgres setup guide: https://wiki.postgresql.org/wiki/Detailed_installation_guides
 
 Then, you will need a .env file in the root directory to store database credentials. Example .env file:
 ```
