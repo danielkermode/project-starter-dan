@@ -22,7 +22,7 @@ Now, if the database is set up correctly you should run ```npm run database``` w
 
 ```npm test``` to run the Tape/Enzyme tests for react components and redux reducers, that also uses ```babel-tape-runner``` for es6.
 
-```npm run stest``` to run serverside database tests.
+```npm run stest``` to run serverside database tests. NOTE: you may have to add a .env file to /server to run this. That means you'll have 2 identical .env files, both are included in the .gitignore.
 
 ```npm run build``` to build the bundle.js that lies in /public, using webpack.
 
