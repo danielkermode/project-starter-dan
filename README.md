@@ -30,4 +30,6 @@ Template is one of:
 
 ```fullstack-db``` A full stack setup with react-router, redux bindings, express and knex on the backend with code for a postgres db.
 
+```basic-angular``` A basic Angular 2 setup with Typescript, taken from the tutorial https://angular.io/docs/ts/latest/quickstart.html.
+
 WIP.
