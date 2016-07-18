@@ -9,12 +9,14 @@ Recommended to use with node >=6.2.1.
 ```
 usage: dank [template] [yourdirname]
        dank add <yourdirname>
+       dank config
 
-Without any arguments, project-starter will prompt for a template to use.
-With [template], project-starter will copy the template into the current dir.
-With [yourdirname], project-starter will give the new folder the specified name.
+Without any arguments, dank will prompt for a template to use.
+With [template], dank will copy the template into the current dir.
+With [yourdirname], dank will give the new folder the specified name.
 
 add <yourdirname> will add your (relative or absolute) dir to the usable templates.
+config will walk through a setup that specficies default package.json values.
 
 ```
 
