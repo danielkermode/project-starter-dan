@@ -8,6 +8,8 @@ const licenses = require('osi-licenses');
 const args = process.argv;
 const templates = lib.getDirectories(path.join(__dirname, 'templates'));
 
+const config = require('./dank.config.json');
+
 //polyfill for includes
 if(!Array.prototype.includes) {
   Array.prototype.includes = function(searchElement, fromIndex) {
@@ -27,32 +29,65 @@ function argHandler(templates, args) {
           help();
         }
         break;
+      case 'config':
+        setConfig();
+        break;
       default:
         help();
-        break;
     }
   } else {
     // template requested exists, copy template into either given name or default name
     const templateDir = path.join(__dirname, 'templates', args[2]);
     const destDir = path.join(process.cwd(), args[3] ? args[3] : args[2]);
-    lib.copyTemplate(templateDir, destDir);
+    lib.copyTemplate(templateDir, destDir, config);
   }
 }
 
-function help() {
-  console.log();
-  console.log(chalk.green('   usage: dank [template] [yourdirname]'));
-  console.log(chalk.green('          dank add <yourdirname>'));
-  console.log();
-  console.log(chalk.yellow('   Without any arguments, dank will prompt for a template to use.'));
-  console.log(chalk.yellow('   With [template], dank will copy the template into the current dir.'));
-  console.log(chalk.yellow('   With [yourdirname], dank will give the new folder the specified name.'));
-  console.log();
-  console.log(chalk.yellow('   add <yourdirname> will add your (relative or absolute) dir to the usable templates.'));
-  console.log();
+function setConfig() {
+  inquirer.prompt([
+    {
+      type: 'input',
+      name: 'author',
+      message: 'Set default author.',
+      default: () => {
+        return config.author || 'author';
+      }
+    },
+    {
+      type: 'input',
+      name: 'engine',
+      message: 'Set default node engine.',
+      default: () => {
+        return (config.engines && config.engines.node) || '6.2.1';
+      }
+    },
+    {
+      type: 'confirm',
+      name: 'moveon',
+      message: 'Continue?'
+    }
+  ]).then((answers) => {
+    console.log(answers);
+    if(answers.moveon) {
+      const newConfig = {
+        author: answers.author,
+        engines: {
+          node: answers.engine
+        }
+      };
+      const configdir = path.join(__dirname, 'dank.config.json');
+      lib.changeConfig(configdir, config, newConfig);
+    }
+  });
 }
 
-if(!args[2] && !args[3]) {
+function walkThrough() {
+  if(!Object.keys(config).length) {
+    console.log(chalk.yellow('You haven\'t set any default configuration.'));
+    console.log(chalk.yellow('To set up default package.json values, run dank config.'));
+    console.log();
+  }
+
   inquirer.prompt([
     {
       type: 'list',
@@ -83,7 +118,7 @@ if(!args[2] && !args[3]) {
         name: 'author',
         message: 'What\'s your name on Github?',
         default: () => {
-          return 'author';
+          return config.author || 'author';
         }
       },
       {
@@ -96,7 +131,7 @@ if(!args[2] && !args[3]) {
       {
         type: 'confirm',
         name: 'moveon',
-        message: 'Continue?',
+        message: 'Continue?'
       }
     ]),
     answers
@@ -104,12 +139,32 @@ if(!args[2] && !args[3]) {
   }).then((answers) => {
     const template = answers.find(obj => !!obj.template).template;
     const scaffold = answers.find(obj => !!obj.name);
-    if(!scaffold.moveon) return;
-    const templateDir = path.join(__dirname, 'templates', template);
-    const destDir = path.join(process.cwd(), scaffold.name);
-    lib.copyTemplate(templateDir, destDir, scaffold);
+    if(scaffold.moveon) {
+      const templateDir = path.join(__dirname, 'templates', template);
+      const destDir = path.join(process.cwd(), scaffold.name);
+      scaffold.engine = config.engine;
+      lib.copyTemplate(templateDir, destDir, scaffold);
+    }
   });
+}
 
+function help() {
+  console.log();
+  console.log(chalk.green('   usage: dank [template] [yourdirname]'));
+  console.log(chalk.green('          dank add <yourdirname>'));
+  console.log(chalk.green('          dank config'));
+  console.log();
+  console.log(chalk.yellow('   Without any arguments, dank will prompt for a template to use.'));
+  console.log(chalk.yellow('   With [template], dank will copy the template into the current dir.'));
+  console.log(chalk.yellow('   With [yourdirname], dank will give the new folder the specified name.'));
+  console.log();
+  console.log(chalk.yellow('   add <yourdirname> will add your (relative or absolute) dir to the usable templates.'));
+  console.log(chalk.yellow('   config will walk through a setup that specficies default package.json values.'));
+  console.log();
+}
+
+if(!args[2] && !args[3]) {
+  walkThrough();
 } else {
   argHandler(templates, args);
 }
