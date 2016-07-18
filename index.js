@@ -67,7 +67,6 @@ function setConfig() {
       message: 'Continue?'
     }
   ]).then((answers) => {
-    console.log(answers);
     if(answers.moveon) {
       const newConfig = {
         author: answers.author,
