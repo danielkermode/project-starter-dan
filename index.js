@@ -158,7 +158,7 @@ function help() {
   console.log(chalk.yellow('   With [yourdirname], dank will give the new folder the specified name.'));
   console.log();
   console.log(chalk.yellow('   add <yourdirname> will add your (relative or absolute) dir to the usable templates.'));
-  console.log(chalk.yellow('   config will walk through a setup that specficies default package.json values.'));
+  console.log(chalk.yellow('   config will walk through a setup that specifies default package.json values.'));
   console.log();
 }
 
