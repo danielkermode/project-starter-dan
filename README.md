@@ -1,5 +1,7 @@
 #project-starter-dan
 
+[![Build Status](https://travis-ci.org/danielkermode/project-starter-dan.svg?branch=master)](https://travis-ci.org/danielkermode/project-starter-dan)
+
 A scaffolding tool for building node projects.
 
 ```npm i -g project-starter-dan```.
