@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 const inquirer = require('inquirer');
 const path = require('path');
 const chalk = require('chalk');
