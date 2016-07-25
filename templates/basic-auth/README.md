@@ -1,4 +1,4 @@
-# Group-Project
+# Basic-auth
 
 A full stack application using handlebars, express, passport and knex.
 
