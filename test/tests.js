@@ -127,3 +127,19 @@ test('saveTemplate', (t) => {
       });
   });
 });
+
+test('changeConfig', (t) => {
+  const dummyFile = tmp.fileSync({
+    dir: __dirname,
+    unsafeCleanup: true,
+    postfix: '.json'
+  });
+
+  const configdir = dummyFile.name;
+  const oldConfig = {};
+  const newConfig = { obj: {}, new: 123, author: 'an author' };
+  lib.changeConfig(configdir, oldConfig, newConfig);
+  const changed = require('./' + path.basename(dummyFile.name));
+  t.deepEqual(changed, newConfig, 'changes a config file correctly');
+  t.end();
+});
