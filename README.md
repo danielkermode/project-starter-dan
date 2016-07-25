@@ -34,4 +34,8 @@ Template is one of:
 
 ```basic-angular``` A basic Angular 2 setup with Typescript, taken from the tutorial https://angular.io/docs/ts/latest/quickstart.html.
 
+```basic-auth``` An express server with authentication and encryption using passport and bcrypt, in conjunction with a postgres database. Uses handlebars for the frontend.
+
+All templates come with a README.md for further information/scripts.
+
 WIP.

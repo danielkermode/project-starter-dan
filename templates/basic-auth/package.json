@@ -1,0 +1,37 @@
+{
+  "name": "basic-auth",
+  "version": "1.0.0",
+  "description": "basic-auth",
+  "main": "app.js",
+  "scripts": {
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www",
+    "test": "tape test/*.js | tap-spec",
+    "database": "knex migrate:rollback && knex migrate:latest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rena-deane/group-project-auth.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.3.0",
+    "body-parser": "^1.15.2",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.3",
+    "dotenv": "^2.0.0",
+    "express": "^4.14.0",
+    "express-session": "^1.14.0",
+    "handlebars": "^4.0.5",
+    "hbs": "^4.0.0",
+    "knex": "^0.11.8",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "pg": "^6.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.9.2",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.6.0"
+  }
+}
