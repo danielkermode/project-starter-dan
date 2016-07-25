@@ -139,7 +139,7 @@ test('changeConfig', (t) => {
   const oldConfig = {};
   const newConfig = { obj: {}, new: 123, author: 'an author' };
   lib.changeConfig(configdir, oldConfig, newConfig);
-  const changed = require('./' + path.basename(dummyFile.name));
+  const changed = require(`./${path.basename(dummyFile.name)}`);
   t.deepEqual(changed, newConfig, 'changes a config file correctly');
   t.end();
 });
